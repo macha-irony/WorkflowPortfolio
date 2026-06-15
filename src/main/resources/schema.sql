@@ -1,0 +1,101 @@
+--Roles
+CREATE TABLE IF NOT EXISTS roles(
+	id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(30) NOT NULL UNIQUE
+);
+
+--Positions
+CREATE TABLE IF NOT EXISTS positions(
+	id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(30) NOT NULL UNIQUE
+);
+
+--ApprovalFlows
+CREATE TABLE IF NOT EXISTS approval_flows(
+	id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(30) NOT NULL UNIQUE,
+    description VARCHAR(255),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+--ApprovalFlowSteps
+CREATE TABLE IF NOT EXISTS approval_flow_steps(
+	id BIGSERIAL PRIMARY KEY,
+    flow_id BIGINT NOT NULL REFERENCES approval_flows(id),
+    step_no INTEGER NOT NULL,
+    approver_position_id BIGINT NOT NULL REFERENCES positions(id),
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(flow_id, step_no)
+);
+
+--LeaveTypes
+CREATE TABLE IF NOT EXISTS leave_types(
+	id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(30) NOT NULL UNIQUE,
+    description VARCHAR(255),
+    flow_id BIGINT NOT NULL REFERENCES approval_flows(id)
+);
+
+--Users
+CREATE TABLE IF NOT EXISTS users(
+	id BIGSERIAL PRIMARY KEY,
+	login_id VARCHAR(50) NOT NULL UNIQUE,
+	password VARCHAR(255) NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	role_id BIGINT NOT NULL REFERENCES roles(id),
+	position_id BIGINT NOT NULL REFERENCES positions(id),
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+--Leaves
+CREATE TABLE IF NOT EXISTS leaves(
+	id BIGSERIAL PRIMARY KEY,
+	applicant_id BIGINT NOT NULL REFERENCES users(id),
+	leave_type_id BIGINT NOT NULL REFERENCES leave_types(id),
+	flow_id BIGINT NOT NULL REFERENCES approval_flows(id),
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    reason TEXT,
+    status VARCHAR(20) NOT NULL DEFAULT 'PENDING'
+		CHECK(status IN ('PENDING','APPROVED','REJECTED','CANCELED')),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (start_date <= end_date)
+);
+
+--Approvals
+CREATE TABLE IF NOT EXISTS approvals(
+	id BIGSERIAL PRIMARY KEY,
+    leave_id BIGINT NOT NULL REFERENCES leaves(id),
+    approver_id BIGINT NOT NULL REFERENCES users(id),
+    step_no INTEGER NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'PENDING'
+        CHECK(status IN ('PENDING','APPROVED','REJECTED','CANCELED')),
+    comment TEXT,
+    approval_at TIMESTAMP NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(leave_id, step_no)
+);
+
+--History
+CREATE TABLE IF NOT EXISTS histories(
+	id BIGSERIAL PRIMARY KEY,
+    leave_id BIGINT NOT NULL REFERENCES leaves(id),
+    approval_id BIGINT NOT NULL REFERENCES approvals(id),
+    operator_id BIGINT NOT NULL REFERENCES users(id),
+    step_no INTEGER NOT NULL,
+    action VARCHAR(20) NOT NULL
+    CHECK(action IN (
+	'APPLY',
+	'APPROVE',
+	'REJECT',
+	'RETURN',
+	'CANCEL'
+	)),
+    comment TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
