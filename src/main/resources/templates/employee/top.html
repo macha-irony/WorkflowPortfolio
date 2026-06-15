@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>社員トップ</title>
+</head>
+
+<body>
+
+	<h1>社員トップ</h1>
+
+	<ul>
+		<li>
+			<a th:href="@{/employee/leave/apply}">
+				休暇申請
+			</a>
+		</li>
+
+		<li>
+			<a th:href="@{/employee/leave/list}">
+				自分の申請一覧
+			</a>
+		</li>
+	</ul>
+
+</body>
+
+</html>

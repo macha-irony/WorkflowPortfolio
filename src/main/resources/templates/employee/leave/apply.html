@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>社員トップ</title>
+</head>
+
+<body>
+	<h1>休暇申請</h1>
+
+	<form th:object="${leaveApplyForm}">
+		<div>
+			<label>休暇種別</label>
+			<select th:field="*{leaveTypeId}">
+			</select>
+		</div>
+
+		<div>
+			<label>開始日</label>
+			<input type="date" th:field="*{startDate}">
+		</div>
+
+		<div>
+			<label>終了日</label>
+			<input type="date" th:field="*{endDate}">
+		</div>
+
+		<div>
+			<label>理由</label>
+			<br>
+			<textarea th:field="*{reason}"></textarea>
+		</div>
+
+		<button type="submit">確認</button>
+		<a th:href="@{/employee}">トップに戻る</a>
+	</form>
+</body>
+
+</html>
