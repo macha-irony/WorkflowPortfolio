@@ -1,4 +1,4 @@
-package com.example.teamapp;
+package com.example.workflowportfolio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
