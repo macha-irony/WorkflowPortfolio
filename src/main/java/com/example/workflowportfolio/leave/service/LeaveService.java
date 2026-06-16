@@ -1,7 +1,10 @@
 package com.example.workflowportfolio.leave.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.example.workflowportfolio.leave.dto.LeaveListDto;
 import com.example.workflowportfolio.leave.entity.Leave;
 import com.example.workflowportfolio.leave.form.LeaveApplyForm;
 import com.example.workflowportfolio.leave.mapper.LeaveMapper;
@@ -26,5 +29,9 @@ public class LeaveService {
         leave.setStatus("PENDING");
         
         leaveMapper.insert(leave);
+	}
+	
+	public List<LeaveListDto> getLeaveList(Long applicantId){
+		return leaveMapper.findByApplicantId(applicantId);
 	}
 }

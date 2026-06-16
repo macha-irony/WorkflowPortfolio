@@ -33,5 +33,11 @@ public class LeaveController {
 		leaveService.apply(form);
 		return "redirect:/employee";
 	}
-
+	
+	@GetMapping("/list")
+	public String leaveList(Model model) {
+		Long applicantId = 1L;
+		model.addAttribute("leaveList", leaveService.getLeaveList(applicantId));
+		return "employee/leave/list";
+	}
 }
