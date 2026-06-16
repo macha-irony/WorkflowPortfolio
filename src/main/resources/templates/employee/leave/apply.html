@@ -9,10 +9,19 @@
 <body>
 	<h1>休暇申請</h1>
 
-	<form th:object="${leaveApplyForm}">
+	<form
+		th:action="@{/employee/leave/apply}" 
+		th:object="${leaveApplyForm}"
+		method="post">
 		<div>
 			<label>休暇種別</label>
 			<select th:field="*{leaveTypeId}">
+				<option value="">選択してください</option>
+				<option
+				        th:each="type : ${leaveTypes}"
+				        th:value="${type.id}"
+				        th:text="${type.name}">
+				    </option>
 			</select>
 		</div>
 

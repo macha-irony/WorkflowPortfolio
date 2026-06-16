@@ -1,0 +1,19 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.workflowportfolio.leave.mapper.LeaveTypeMapper">
+
+<select id = "findAll"
+		resultType = "com.example.workflowportfolio.leave.entity.LeaveType">
+
+SELECT
+	id,
+	name,
+	description,
+	flow_id
+FROM
+	leave_types
+</select>
+
+</mapper>
