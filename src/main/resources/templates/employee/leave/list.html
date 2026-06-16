@@ -19,6 +19,7 @@
 				<th>終了日</th>
 				<th>状態</th>
 				<th>申請日</th>
+				<th>詳細</th>
 			</tr>
 		</thead>
 
@@ -30,6 +31,11 @@
 				<td th:text="${leave.endDate}"></td>
 				<td th:text="${leave.status}"></td>
 				<td th:text="${leave.createdAt}"></td>
+				<td>
+					<a th:href="@{/employee/leave/{id}(id=${leave.id})}">
+						詳細
+					</a>
+				</td>
 			</tr>
 		</tbody>
 	</table>

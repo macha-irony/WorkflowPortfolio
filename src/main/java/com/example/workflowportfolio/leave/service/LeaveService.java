@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.workflowportfolio.leave.dto.LeaveDetailDto;
 import com.example.workflowportfolio.leave.dto.LeaveListDto;
 import com.example.workflowportfolio.leave.entity.Leave;
 import com.example.workflowportfolio.leave.form.LeaveApplyForm;
@@ -33,5 +34,9 @@ public class LeaveService {
 	
 	public List<LeaveListDto> getLeaveList(Long applicantId){
 		return leaveMapper.findByApplicantId(applicantId);
+	}
+	
+	public LeaveDetailDto getLeaveDetail(Long id) {
+		return leaveMapper.findDetailById(id);
 	}
 }

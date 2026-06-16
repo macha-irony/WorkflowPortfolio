@@ -50,4 +50,26 @@ ORDER BY
 
 </select>
 
+<select id="findDetailById"
+		resultType ="com.example.workflowportfolio.leave.dto.LeaveDetailDto">
+
+SELECT
+	l.id,
+	lt.name AS leaveTypeName,
+	l.start_date,
+	l.end_date,
+	l.reason,
+	l.status,
+	l.created_at,
+	l.updated_at
+FROM
+	leaves l
+JOIN
+	leave_types lt
+ON
+	l.leave_type_id = lt.id
+WHERE 
+	l.id = #{id}
+	
+</select>
 </mapper>

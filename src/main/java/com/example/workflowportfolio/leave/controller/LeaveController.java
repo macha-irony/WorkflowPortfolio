@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -39,5 +40,11 @@ public class LeaveController {
 		Long applicantId = 1L;
 		model.addAttribute("leaveList", leaveService.getLeaveList(applicantId));
 		return "employee/leave/list";
+	}
+	
+	@GetMapping("/{id}")
+	public String leaveDetail(@PathVariable Long id, Model model) {
+		model.addAttribute("leaveDetail", leaveService.getLeaveDetail(id));
+		return "employee/leave/detail";
 	}
 }

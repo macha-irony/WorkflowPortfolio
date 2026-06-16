@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>休暇申請一覧</title>
+</head>
+
+<body>
+
+<h2>休暇申請詳細</h2>
+
+<table>
+    <tr>
+        <th>申請ID</th>
+        <td th:text="${leaveDetail.id}"></td>
+    </tr>
+
+    <tr>
+        <th>休暇種別</th>
+        <td th:text="${leaveDetail.leaveTypeName}"></td>
+    </tr>
+
+    <tr>
+        <th>開始日</th>
+        <td th:text="${leaveDetail.startDate}"></td>
+    </tr>
+
+    <tr>
+        <th>終了日</th>
+        <td th:text="${leaveDetail.endDate}"></td>
+    </tr>
+
+    <tr>
+        <th>理由</th>
+        <td th:text="${leaveDetail.reason}"></td>
+    </tr>
+
+    <tr>
+        <th>状態</th>
+        <td th:text="${leaveDetail.status}"></td>
+    </tr>
+
+    <tr>
+        <th>申請日</th>
+        <td th:text="${leaveDetail.createdAt}"></td>
+    </tr>
+
+    <tr>
+        <th>更新日</th>
+        <td th:text="${leaveDetail.updatedAt}"></td>
+    </tr>
+</table>
+
+<br>
+
+<a th:href="@{/employee/leave/list}">一覧へ戻る</a>
+
+</body>
+
+</html>
