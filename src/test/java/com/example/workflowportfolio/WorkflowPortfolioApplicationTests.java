@@ -1,4 +1,4 @@
-package com.example.teamapp;
+package com.example.workflowportfolio;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
