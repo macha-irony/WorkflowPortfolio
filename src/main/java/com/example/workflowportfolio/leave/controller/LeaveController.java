@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.workflowportfolio.leave.form.LeaveApplyForm;
 import com.example.workflowportfolio.leave.service.LeaveService;
@@ -18,36 +19,38 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/employee/leave")
 @RequiredArgsConstructor
 public class LeaveController {
-	
+
 	private final LeaveTypeService leaveTypeService;
 	private final LeaveService leaveService;
-	
+
 	@GetMapping("/apply")
 	public String applyLeave(Model model) {
 		model.addAttribute("leaveApplyForm", new LeaveApplyForm());
 		model.addAttribute("leaveTypes", leaveTypeService.findAll());
 		return "employee/leave/apply";
 	}
-	
+
 	@PostMapping("/apply")
 	public String applyLeave( @ModelAttribute LeaveApplyForm form) {
 		leaveService.apply(form);
 		return "redirect:/employee";
 	}
-	
+
 	@PostMapping("/{id}/cancel")
-	public String cancelLeave(@PathVariable Long id) {
-	leaveService.cancelLeave(id);
+	public String cancelLeave(@PathVariable Long id,
+								RedirectAttributes redirectAttributes) {
+		leaveService.cancelLeave(id);
+		redirectAttributes.addFlashAttribute("message", "申請を取り消しました");
 		return "redirect:/employee/leave/list";
 	}
-	
+
 	@GetMapping("/list")
 	public String leaveList(Model model) {
 		Long applicantId = 1L;
 		model.addAttribute("leaveList", leaveService.getLeaveList(applicantId));
 		return "employee/leave/list";
 	}
-	
+
 	@GetMapping("/{id}")
 	public String leaveDetail(@PathVariable Long id, Model model) {
 		model.addAttribute("leaveDetail", leaveService.getLeaveDetail(id));

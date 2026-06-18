@@ -43,21 +43,24 @@
 
     <tr>
         <th>申請日</th>
-        <td th:text="${leaveDetail.createdAt}"></td>
+        <td th:text="${#temporals.format(leaveDetail.createdAt, 'yyyy-MM-dd hh:mm:ss')}"></td>
     </tr>
 
     <tr>
         <th>更新日</th>
-        <td th:text="${leaveDetail.updatedAt}"></td>
+        <td th:text="${#temporals.format(leaveDetail.updatedAt, 'yyyy-MM-dd hh:mm:ss')}"></td>
     </tr>
 </table>
 
 <br>
-<form th:action="@{/employee/leave/{id}/cancel(id=${leaveDetail.id})}"
+<form th:if="${leaveDetail.status == 'PENDING'}"
+		th:action="@{/employee/leave/{id}/cancel(id=${leaveDetail.id})}"
 		method="post">
-	<button type="submit">
+	<button type="submit"
+			onclick="return confirm('この申請を取消しますか？')">
 		取消
 	</button>	
+	
 </form>
 
 <a th:href="@{/employee/leave/list}">一覧へ戻る</a>
