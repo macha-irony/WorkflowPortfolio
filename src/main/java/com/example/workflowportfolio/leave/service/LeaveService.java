@@ -32,6 +32,10 @@ public class LeaveService {
         leaveMapper.insert(leave);
 	}
 	
+	public void cancelLeave(Long id) {
+		leaveMapper.cancel(id);
+	}
+	
 	public List<LeaveListDto> getLeaveList(Long applicantId){
 		return leaveMapper.findByApplicantId(applicantId);
 	}

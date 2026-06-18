@@ -11,6 +11,7 @@ import com.example.workflowportfolio.leave.entity.Leave;
 @Mapper
 public interface LeaveMapper {
 	int insert(Leave leave);
+	int cancel(Long id);
 	List<LeaveListDto> findByApplicantId(Long applicantId);
 	LeaveDetailDto findDetailById(Long id);
 }

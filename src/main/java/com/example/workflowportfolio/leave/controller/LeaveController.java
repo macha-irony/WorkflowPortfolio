@@ -35,6 +35,12 @@ public class LeaveController {
 		return "redirect:/employee";
 	}
 	
+	@PostMapping("/{id}/cancel")
+	public String cancelLeave(@PathVariable Long id) {
+	leaveService.cancelLeave(id);
+		return "redirect:/employee/leave/list";
+	}
+	
 	@GetMapping("/list")
 	public String leaveList(Model model) {
 		Long applicantId = 1L;

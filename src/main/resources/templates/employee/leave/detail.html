@@ -53,6 +53,12 @@
 </table>
 
 <br>
+<form th:action="@{/employee/leave/{id}/cancel(id=${leaveDetail.id})}"
+		method="post">
+	<button type="submit">
+		取消
+	</button>	
+</form>
 
 <a th:href="@{/employee/leave/list}">一覧へ戻る</a>
 
