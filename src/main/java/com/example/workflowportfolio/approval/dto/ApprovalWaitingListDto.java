@@ -1,4 +1,4 @@
-package com.example.workflowportfolio.leave.dto;
+package com.example.workflowportfolio.approval.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,18 +6,16 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class LeaveListDto {
-	private Long id;
-	
-	private String applicantName;
-    
-	private String leaveTypeName;
+public class ApprovalWaitingListDto {
+	private Long leaveId;
+
+    private String applicantName;
+
+    private String leaveTypeName;
 
     private LocalDate startDate;
 
     private LocalDate endDate;
-
-    private String status;
 
     private LocalDateTime createdAt;
 }

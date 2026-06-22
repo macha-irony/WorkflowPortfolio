@@ -5,7 +5,9 @@
 <mapper namespace="com.example.workflowportfolio.leave.mapper.LeaveMapper">
 
 <insert id="insert"
-		parameterType="com.example.workflowportfolio.leave.entity.Leave">
+        parameterType="com.example.workflowportfolio.leave.entity.Leave"
+        useGeneratedKeys="true"
+        keyProperty="id">
 		
 INSERT INTO leaves(
 	applicant_id,
@@ -19,7 +21,7 @@ INSERT INTO leaves(
 VALUES(
 	#{applicantId},
 	#{leaveTypeId},
-	#{approvalFlowId},
+	#{flowId},
 	#{startDate},
 	#{endDate},
 	#{reason},

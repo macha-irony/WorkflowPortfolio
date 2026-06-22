@@ -9,7 +9,7 @@ public class Leave {
 	private Long id;
 	private Long applicantId;
 	private Long leaveTypeId;
-	private Long approvalFlowId;
+	private Long flowId;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private String reason;

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>承認待ち一覧</h1>
+	
+
+
+	<table border="1">
+	    <thead>
+	        <tr>
+	            <th>申請者</th>
+	            <th>休暇種別</th>
+	            <th>開始日</th>
+	            <th>終了日</th>
+	            <th>申請日時</th>
+	            <th>詳細</th>
+	        </tr>
+	    </thead>
+
+	    <tbody>
+			
+			<tr th:if="${#lists.isEmpty(approvalList)}">
+			    <td colspan="6">承認待ちはありません。</td>
+			</tr>
+			
+	        <tr th:each="approval : ${approvalList}">
+	            <td th:text="${approval.applicantName}"></td>
+	            <td th:text="${approval.leaveTypeName}"></td>
+	            <td th:text="${approval.startDate}"></td>
+	            <td th:text="${approval.endDate}"></td>
+				<td th:text="${#temporals.format(
+				    approval.createdAt,
+				    'yyyy/MM/dd HH:mm'
+				)}"></td>
+				<td>
+				<a th:href="@{/employee/approval/{id}(id=${approval.leaveId})}">
+				    詳細
+				</a>
+	            </td>
+	        </tr>
+	    </tbody>
+
+	</table>
+</body>
+</html>

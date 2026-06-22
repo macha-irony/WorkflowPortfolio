@@ -12,4 +12,10 @@ public interface UserMapper {
 	User findByLoginId(String loginId);
 	List<User> findAll();
 	int insert(User user);
+	/*
+	 * 現在は役職ごとにユーザーが1名の前提。
+	 * 将来的に同一役職のユーザーが複数存在する場合は
+	 * List<User>への変更を検討する。
+	 */
+	User findByPositionId(Long positionId);
 }

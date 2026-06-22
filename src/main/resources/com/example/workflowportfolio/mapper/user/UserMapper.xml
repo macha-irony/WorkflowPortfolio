@@ -82,4 +82,21 @@ VALUES(
 
 </insert>
 
+<select id="findByPositionId"
+        resultType="com.example.workflowportfolio.user.entity.User">
+
+SELECT
+	id,
+	login_id,
+	password,
+	name,
+	role_id,
+	position_id
+FROM
+	users
+WHERE
+	position_id = #{positionId}
+
+</select>
+
 </mapper>

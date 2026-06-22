@@ -11,7 +11,7 @@ public class Approval {
 	private Integer stepNo;
 	private String status;
 	private String comment;
-	private LocalDateTime approvalAt;
+	private LocalDateTime approvedAt;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 }

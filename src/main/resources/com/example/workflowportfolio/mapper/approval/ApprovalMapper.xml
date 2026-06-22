@@ -1,0 +1,57 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.workflowportfolio.approval.mapper.ApprovalMapper">
+
+<insert id="insert"
+		parameterType="com.example.workflowportfolio.approval.entity.Approval">
+
+INSERT INTO approvals(
+	leave_id,
+	approver_id,
+	step_no,
+	status
+	)
+VALUES(
+	#{leaveId},
+	#{approverId},
+	#{stepNo},
+	#{status}
+	)
+	
+</insert>
+
+<select id="findPendingApproval"
+		resultType="com.example.workflowportfolio.approval.dto.ApprovalWaitingListDto">
+SELECT	
+	lv.id AS leaveId,
+	us.name AS applicantName,
+	lt.name AS leaveTypeName,
+	lv.start_date AS startDate,
+	lv.end_date AS endDate,
+	lv.created_at AS createdAt
+FROM		approvals ap
+JOIN		leaves lv
+	ON	ap.leave_id = lv.id
+JOIN		users us
+	ON	lv.applicant_id = us.id
+JOIN		leave_types lt
+	ON	lv.leave_type_id = lt.id
+WHERE
+	ap.approver_id = #{approverId}
+AND
+	ap.status = 'PENDING'
+AND
+	ap.step_no = (
+		SELECT	MIN(step_no)
+		FROM		approvals ap2
+		WHERE	ap2.leave_id = ap.leave_id
+		AND		ap2.status = 'PENDING'
+	)
+ORDER BY
+    lv.created_at DESC
+
+</select>
+
+</mapper>
