@@ -79,4 +79,25 @@ WHERE	lv.id = #{leaveId}
 
 </select>
 
+<update id="approve">
+
+UPDATE 	approvals
+SET		status = 'APPROVED',
+		approval_at = CURRENT_TIMESTAMP,
+		updated_at = CURRENT_TIMESTAMP
+WHERE	leave_id = #{leaveId}
+	AND	approver_id = #{approverId}
+	AND status = 'PENDING'
+
+</update>
+
+<select id="countPendingByLeaveId">
+
+SELECT	COUNT(*)
+FROM		approvals
+WHERE	leave_id = #{leaveId}
+	AND	status = 'PENDING'
+
+</select>
+
 </mapper>

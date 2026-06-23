@@ -85,4 +85,15 @@ WHERE
 	l.id = #{id}
 	
 </select>
+
+<update id="updateStatus">
+
+UPDATE	leaves
+SET		status = 'APPROVED',
+		updated_at = CURRENT_TIMESTAMP
+WHERE	id = #{leaveId}
+	AND	status = 'PENDING'
+	
+</update>
+
 </mapper>
