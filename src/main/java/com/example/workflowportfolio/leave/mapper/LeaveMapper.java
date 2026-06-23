@@ -12,7 +12,8 @@ import com.example.workflowportfolio.leave.entity.Leave;
 public interface LeaveMapper {
 	int insert(Leave leave);
 	int cancel(Long id);
-	int updateStatus(Long leaveId);
+	int approveLeave(Long leaveId);
+	int rejectLeave(Long leaveId);
 	List<LeaveListDto> findByApplicantId(Long applicantId);
 	LeaveDetailDto findDetailById(Long id);
 }

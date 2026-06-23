@@ -91,6 +91,18 @@ WHERE	leave_id = #{leaveId}
 
 </update>
 
+<update id="reject">
+
+UPDATE	approvals
+SET		status = 'REJECTED',
+		approval_at = CURRENT_TIMESTAMP,
+		updated_at = CURRENT_TIMESTAMP
+WHERE	leave_id = #{leaveId}
+	AND approver_id = #{approverId}
+	AND status = 'PENDING'
+
+</update>
+
 <select id="countPendingByLeaveId">
 
 SELECT	COUNT(*)

@@ -86,10 +86,20 @@ WHERE
 	
 </select>
 
-<update id="updateStatus">
+<update id="approveLeave">
 
 UPDATE	leaves
 SET		status = 'APPROVED',
+		updated_at = CURRENT_TIMESTAMP
+WHERE	id = #{leaveId}
+	AND	status = 'PENDING'
+	
+</update>
+
+<update id="rejectLeave">
+
+UPDATE	leaves
+SET		status = 'REJECTED',
 		updated_at = CURRENT_TIMESTAMP
 WHERE	id = #{leaveId}
 	AND	status = 'PENDING'

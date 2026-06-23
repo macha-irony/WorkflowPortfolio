@@ -59,7 +59,13 @@
 	<form th:action="@{/employee/approval/{leaveId}/approve(leaveId=${approvalDetail.leaveId})}" method="post">
 		<button type="submit">承認</button>
 	</form>
-	
+
+	<br>
+
+	<form th:action="@{/employee/approval/{leaveId}/reject(leaveId=${approvalDetail.leaveId})}" method="post">
+		<button type="submit">却下</button>
+	</form>
+
 	<br>
 
 	<a th:href="@{/employee/approval/waiting}">

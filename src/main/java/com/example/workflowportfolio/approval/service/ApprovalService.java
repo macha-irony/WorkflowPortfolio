@@ -39,9 +39,20 @@ public class ApprovalService {
 		int pendingCount = approvalMapper.countPendingByLeaveId(leaveId);
 		
 		if(pendingCount == 0) {
-			leaveMapper.updateStatus(leaveId);
+			leaveMapper.approveLeave(leaveId);
 		}
 
+	}
+	
+	@Transactional
+	public void reject(Long leaveId, Long approverId) {
+		int count = approvalMapper.reject(leaveId, approverId);
+		
+		if(count == 0) {
+			throw new IllegalStateException("却下対象が存在しません。");
+		}
+		
+		leaveMapper.rejectLeave(leaveId);
 	}
 
 }
