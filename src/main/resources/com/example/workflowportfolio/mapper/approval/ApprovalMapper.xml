@@ -54,4 +54,29 @@ ORDER BY
 
 </select>
 
+<select id="findDetail"
+		resultType="com.example.workflowportfolio.approval.dto.ApprovalDetailDto">
+
+SELECT	
+		lv.id			AS leaveId,
+		us.name 			AS applicantName,
+		lt.name			AS leaveTypeName,
+		lv.start_date	AS startDate,
+		lv.end_date		AS endDate,
+		lv.reason		AS reason,
+		lv.status		AS leaveStatus,
+		lv.created_at	AS appliedAt
+FROM		approvals ap
+JOIN		leaves lv
+	ON	ap.leave_id = lv.id
+JOIN		leave_types lt
+	ON	lv.leave_type_id = lt.id
+JOIN		users us
+	ON	lv.applicant_id = us.id
+WHERE	lv.id = #{leaveId}
+	AND 	ap.approver_id = #{approverId}
+	AND ap.status = 'PENDING'
+
+</select>
+
 </mapper>

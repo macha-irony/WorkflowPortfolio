@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>承認詳細</title>
+</head>
+<body>
+
+<h1>承認詳細</h1>
+
+<table border="1">
+
+    <tr>
+        <th>申請ID</th>
+        <td th:text="${approvalDetail.leaveId}"></td>
+    </tr>
+
+    <tr>
+        <th>申請者</th>
+        <td th:text="${approvalDetail.applicantName}"></td>
+    </tr>
+
+    <tr>
+        <th>休暇種別</th>
+        <td th:text="${approvalDetail.leaveTypeName}"></td>
+    </tr>
+
+    <tr>
+        <th>開始日</th>
+        <td th:text="${approvalDetail.startDate}"></td>
+    </tr>
+
+    <tr>
+        <th>終了日</th>
+        <td th:text="${approvalDetail.endDate}"></td>
+    </tr>
+
+    <tr>
+        <th>理由</th>
+        <td th:text="${approvalDetail.reason}"></td>
+    </tr>
+
+    <tr>
+        <th>ステータス</th>
+        <td th:text="${approvalDetail.leaveStatus}"></td>
+    </tr>
+
+    <tr>
+        <th>申請日時</th>
+        <td th:text="${#temporals.format(approvalDetail.appliedAt,'yyyy/MM/dd HH:mm')}"></td>
+    </tr>
+
+</table>
+
+<br>
+
+<a th:href="@{/employee/approval/waiting}">
+    一覧へ戻る
+</a>
+
+</body>
+</html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.workflowportfolio.approval.dto.ApprovalDetailDto;
 import com.example.workflowportfolio.approval.dto.ApprovalWaitingListDto;
 import com.example.workflowportfolio.approval.mapper.ApprovalMapper;
 
@@ -13,10 +14,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApprovalService {
 
-		private final ApprovalMapper approvalMapper;
+	private final ApprovalMapper approvalMapper;
 
-		public List<ApprovalWaitingListDto> getWaitingList(Long approverId){
-			return approvalMapper.findPendingApproval(approverId);
-			
-		}
+	public List<ApprovalWaitingListDto> getWaitingList(Long approverId){
+		return approvalMapper.findPendingApproval(approverId);
+
+	}
+	
+	public ApprovalDetailDto getDetail(Long leaveId, Long approverId) {
+		return approvalMapper.findDetail(leaveId, approverId);
+	}
+	
 }
