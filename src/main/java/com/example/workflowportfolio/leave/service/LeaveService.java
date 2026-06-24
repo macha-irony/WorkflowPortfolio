@@ -28,11 +28,11 @@ public class LeaveService {
 	private final ApprovalFlowStepMapper approvalFlowStepMapper;
 
 	@Transactional
-	public void apply(LeaveApplyForm form) {
+	public void apply(LeaveApplyForm form, Long applicantId) {
 		Leave leave = new Leave();
 
 		//実装まで直接代入
-		leave.setApplicantId(1L);
+		leave.setApplicantId(applicantId);
 		leave.setLeaveTypeId(form.getLeaveTypeId());
 		leave.setFlowId(1L);
 		leave.setStartDate(form.getStartDate());

@@ -1,5 +1,7 @@
 package com.example.workflowportfolio.leave.controller;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.workflowportfolio.leave.form.LeaveApplyForm;
 import com.example.workflowportfolio.leave.service.LeaveService;
 import com.example.workflowportfolio.leave.service.LeaveTypeService;
+import com.example.workflowportfolio.user.entity.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,8 +34,12 @@ public class LeaveController {
 	}
 
 	@PostMapping("/apply")
-	public String applyLeave( @ModelAttribute LeaveApplyForm form) {
-		leaveService.apply(form);
+	public String applyLeave( @ModelAttribute LeaveApplyForm form, HttpSession session) {
+		User loginUser =
+	            (User) session.getAttribute("loginUser");
+		leaveService.apply(
+	            form,
+	            loginUser.getId());
 		return "redirect:/employee";
 	}
 
@@ -45,9 +52,10 @@ public class LeaveController {
 	}
 
 	@GetMapping("/list")
-	public String leaveList(Model model) {
-		Long applicantId = 1L;
-		model.addAttribute("leaveList", leaveService.getLeaveList(applicantId));
+	public String leaveList(HttpSession session,Model model) {
+		User loginUser =
+			    (User) session.getAttribute("loginUser");
+		model.addAttribute("leaveList", leaveService.getLeaveList(loginUser.getId()));
 		return "employee/leave/list";
 	}
 
